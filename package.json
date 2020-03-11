@@ -1,0 +1,23 @@
+{
+  "name": "node-new-project",
+  "version": "1.0.0",
+  "description": "Beginner Node.js app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akwin/node-new-project.git"
+  },
+  "author": "Akanksha Sharma",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akwin/node-new-project/issues"
+  },
+  "homepage": "https://github.com/akwin/node-new-project#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
