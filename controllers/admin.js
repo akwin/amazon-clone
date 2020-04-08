@@ -4,7 +4,8 @@ exports.getAddProduct = (req, res, next) => {
     res.render('admin/edit-product', {
         docTitle: 'Add Products', 
         path: '/admin/add-product',
-        editing: false
+        editing: false,
+        isAuthenticated: req.session.isLoggedIn
     });    
 };
 
@@ -31,13 +32,6 @@ exports.postAddProduct = (req, res, next) => {
     });
 };
 
-// req.user.createProduct({
-//     title: title,
-//     price: price,
-//     imageUrl: imageUrl,
-//     description: description
-// })
-
 exports.getEditProduct = (req, res, next) => {
     const editMode = req.query.edit;
     if (!editMode) {
@@ -53,7 +47,8 @@ exports.getEditProduct = (req, res, next) => {
                 docTitle: 'Edit Product', 
                 path: '/admin/edit-product',
                 editing: editMode,
-                product: product
+                product: product,
+                isAuthenticated: req.session.isLoggedIn
             });
         })
         .catch(err => {
@@ -91,7 +86,8 @@ exports.getProducts = (req, res, next) => {
         res.render('admin/products', {
             prods: products,
             path: '/admin/products',
-            docTitle: 'Admin Products'
+            docTitle: 'Admin Products',
+            isAuthenticated: req.session.isLoggedIn
         });
     })
     .catch(err => {
