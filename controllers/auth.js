@@ -114,7 +114,11 @@ exports.postLogin = (req, res, next) => {
           res.redirect('/login');
         });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });
 };
 
 exports.postSignup = (req, res, next) => {
@@ -136,7 +140,6 @@ exports.postSignup = (req, res, next) => {
       validationErrors: errors.array()
     });
   }
-
   bcrypt
     .hash(password, 12)
     .then(hashedPassword => {
@@ -157,7 +160,9 @@ exports.postSignup = (req, res, next) => {
       });
     })
     .catch(err => {
-      console.log(err);
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };
 
@@ -212,7 +217,9 @@ exports.postReset = (req, res, next) => {
         });
       })
       .catch(err => {
-        console.log(err);
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
       });
   });
 };
@@ -236,7 +243,9 @@ exports.getNewPassword = (req, res, next) => {
       });
     })
     .catch(err => {
-      console.log(err);
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };
 
@@ -245,7 +254,6 @@ exports.postNewPassword = (req, res, next) => {
   const userId = req.body.userId;
   const passwordToken = req.body.passwordToken;
   let resetUser;
-
   User.findOne({
     resetToken: passwordToken,
     resetTokenExpiration: { $gt: Date.now() },
@@ -265,6 +273,8 @@ exports.postNewPassword = (req, res, next) => {
       res.redirect('/login');
     })
     .catch(err => {
-      console.log(err);
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };
